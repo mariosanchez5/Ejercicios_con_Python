@@ -29,3 +29,20 @@ def por_moneda(monedas, venta_diaria):
 
 print(por_moneda(monedas, venta_diaria))
 
+"""
+Escriba la funcion total_venta_diaria(monedas, venta_diaria) que retorne el total en
+pesos chilenos de la venta del dia.
+"""
+total_divisas = por_moneda(monedas, venta_diaria)
+
+def total_venta_diaria(monedas, venta_diaria):
+    total = 0
+    for moneda, monto in total_divisas.items():
+        for moneda2, valor in monedas.items():
+            if moneda==moneda2:
+                total = total + (valor[1]*monto)
+    return total
+
+
+print(total_venta_diaria(monedas, venta_diaria))
+
