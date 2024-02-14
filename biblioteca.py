@@ -34,7 +34,44 @@ Todos los meses del ano tienen 30 dias.
 Usted puede crear las funciones que estime necesarias para la resolucion de este problema.
 """
 
-def obtener_multa(catalogo, prestamos,fecha):
-    pass
+def obtener_multa(catalogo, prestamos,date):
+    diccio = {}
+    for rut,clasi,fecha in prestamos:
+        atraso = 0
+        multa = 0
+        fecha1 = ((fecha[1]-1)*30)+fecha[0]
+        date1 = ((date[1]-1)*30)+date[2]
+        dias_pas = date1-fecha1
+        for clasi2,name, campus, tipo in catalogo:
+            if clasi == clasi2:
+                if tipo == 'AD':
+                    atraso = dias_pas-2
+                    if atraso > 0:
+                        multa = atraso * 1000
+                    else:
+                        multa = 0
+                elif tipo == 'CG':
+                    atraso = dias_pas-7
+                    if atraso > 0:
+                        multa = atraso * 500
+                    else:
+                        multa = 0
+                elif tipo == 'CB':
+                    atraso = dias_pas-14
+                    if atraso > 0:
+                        multa = atraso * 100
+                    else:
+                        multa = 0
+                ####        
+                if rut in diccio:
+                    diccio[rut] = diccio[rut] + multa
+                else:
+                    diccio[rut] = multa
+    return diccio
+                
+        
+        
+            
 
 print (obtener_multa(catalogo, prestamos,(2017,6,1)))
+print (obtener_multa(catalogo, prestamos,(2017,5,26)))
