@@ -36,3 +36,28 @@ def monto_total_deuda(clientes):
     return deuda_total,max_name
 
 print(monto_total_deuda(clientes))
+
+"""
+Durante el mes de marzo se tiene la promocion que consiste, en que si el cliente tiene sus cuentas 
+al dia (no tiene deuda) y ademas tiene contratado los 3 servicios (telefonia, cable e internet) se le
+da gratis el canal premium GameKidTV. Si el cliente ya tiene contratado el canal, se le descuentan
+$500 pesos de su saldo mensual.
+Desarrollar la funcion promocion(clientes) que reciba el diccionario clientes y retorne un
+diccionario igual al de clientes, pero aplicando la promocion de marzo a los clientes.
+"""
+
+def promocion(clientes):
+    diccio = {}
+    for id, lista in clientes.items():
+        servicios, saldo, canales, deuda = lista
+        if deuda == False:
+            for canal in canales:
+                if canal == 'GameKidTV':
+                    saldo = saldo - 500
+                else:
+                    canales.append('GameKidTV')
+        diccio[id]=[servicios,saldo,canales,deuda]
+
+    return diccio
+
+print(promocion(clientes))
