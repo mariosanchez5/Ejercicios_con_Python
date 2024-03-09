@@ -70,6 +70,41 @@ def visualizar_inventario(productos):
         nom,cant = prod
         print('Producto: {} - Cantidad: {}'.format(nom,cant))
 
+def buscar_producto(productos):
+    print(productos)
+    print('Si deseas buscar por nombre ingresa 1')
+    print('Si deseas buscar por codigo ingresa 2')
+    op = int(input("Ingresa la opción: "))
+    if op == 1:
+        name = input('Ingresa el nombre del producto a buscar: ')
+        for id,lista in productos.items():
+            nombre,precio,cantidad = lista
+            if nombre == name:
+                print('Producto: {} - Precio: ${} - Cantidad: {}'.format(nombre,precio,cantidad))
+    elif op == 2:
+        cod = int(input('Ingresa el codigo del produto a buscar: '))
+        for id,lista in productos.items():
+            nombre,precio,cantidad = lista
+            if cod == id:
+                print('Producto: {} - Precio: ${} - Cantidad: {}'.format(nombre,precio,cantidad))
+    else:
+        print('La opción no es valida')
+
+def reporte(productos):
+    nombre = 'informe.txt'
+    
+    with open(nombre, 'w') as archivo_txt:
+        # Escribimos el encabezado
+        archivo_txt.write("ID\tProducto\tPrecio\tStock\n")
+
+        # Escribimos los datos del inventario
+        for id, detalles in productos.items():
+            linea = f"{id}\t{detalles[0]}\t{detalles[1]}\t{detalles[2]}\n"
+            archivo_txt.write(linea)
+    
+    print(f'Se ha creado el archivo TXT {nombre}')
+
+
 if opcion == 1:
     agregar_productos(productos)
 elif opcion == 2:
@@ -79,8 +114,8 @@ elif opcion == 3:
 elif opcion == 4:
     visualizar_inventario(productos)
 elif opcion == 5:
-    pass
+    buscar_producto(productos)
 elif opcion == 6:
-    pass
+    reporte(productos)
 else: 
     print("La opción ingresada no es valida")

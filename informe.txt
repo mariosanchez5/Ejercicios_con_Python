@@ -1,0 +1,4 @@
+ID	Producto	Precio	Stock
+1	Pulsera	10000	5
+2	Billetera	45000	10
+3	anillo	30000	2
