@@ -1,5 +1,6 @@
 #En el primer paso se mostraran las opciones en pantalla para que el usuario pueda escoger
 print('Hola! este el sistema de gestión de inventario de la tienda Gifty')
+print()
 print('Estas son las opciones que puedes realizar:')
 print('1.Agregar un nuevo producto')
 print('2.Actualizar información de un producto')
@@ -7,9 +8,11 @@ print('3.Eliminar un producto del inventario')
 print('4.Visualizar inventario/ Alerta productos bajos en inventario')
 print('5.Buscar información de un producto')
 print('6.Generar Reporte de Inventario')
+print()
 
 #Guardamos la opcion escogida por el usuario en una variable llamada opcion
 opcion = int(input('Ingresa el número la opción de la actividad que deseas realizar: '))
+print()
 
 #Crearemos un diccionario con los productos existentes en la tienda. Con la siguiente estructura:
 #productos = {id:[nombre,precio,cantidad]}
@@ -42,9 +45,30 @@ def actualizar_informacion(productos):
             print(productos) #Vemos como ha quedado el nuevo diccionario de productos
 
 def eliminar_productos(productos):
-    pass
+    print('Estos son los productos que hay disponibles: ')
+    print(productos)
+    productos_copia = productos.copy()#Creamos una copia del diccionario original ya que nos daba un error porque no era posible iterar sobre un diccionario que se elimina un elemento
+    id_ingresado = int(input('Ingresa el id del produto a eliminar:'))
+    for id,lista in productos_copia.items(): 
+        if id == id_ingresado:
+            del productos[id]
+            pass
+    print('El producto fue eliminado exitosamente!')
+    print(productos)
 
-
+def visualizar_inventario(productos):
+    control = []
+    for id,lista in productos.items():
+        nombre,precio,cantidad = lista
+        print('Producto: {} - Precio: ${} - Cantidad: {}'.format(nombre,precio,cantidad))
+        if cantidad < 3:
+            control.append([nombre,cantidad])
+    print()
+    print('Alerta!!!')
+    print('Los productos con baja cantidad de stock son:')
+    for prod in control:
+        nom,cant = prod
+        print('Producto: {} - Cantidad: {}'.format(nom,cant))
 
 if opcion == 1:
     agregar_productos(productos)
@@ -53,7 +77,7 @@ elif opcion == 2:
 elif opcion == 3:
     eliminar_productos(productos)
 elif opcion == 4:
-    pass
+    visualizar_inventario(productos)
 elif opcion == 5:
     pass
 elif opcion == 6:
