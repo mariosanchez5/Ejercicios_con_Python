@@ -37,3 +37,48 @@ def notas_por_artista(evaluaciones):
 
 print(notas_por_artista(evaluaciones))
 
+"""
+b.- Escriba la funcion artistas hit(lista, fecha), donde lista es del tipo evaluaciones y
+fecha es una tupla con formato (A,M,D). La funcion debe retornar una lista con los 3 artistas que
+con mayor probabilidad producen hits, ordenada de forma descendente segun la probabilidad. Esta
+probabilidad se obtiene al dividir la cantidad de evaluaciones con nota 4 o 5 del artista por la cantidad total 
+de evaluaciones que posee dicho artista de sus canciones, en ambos considerar las evaluaciones hasta la
+fecha consultada, inclusive. Por lo tanto la probabilidad siempre sera un numero entre 0 y 1. Si hay menos 
+de 3 artistas con evaluaciones anteriores a la fecha, entregue una lista con todos los artistas posibles.
+Tenga en consideracion que los 3 mejores artistas seleccionados deben tener probabilidad  ≥ a todo el resto
+de los artistas en SpotiPhy.
+"""
+
+def artistas_hit(evaluaciones,fecha_limit):
+    diccio = {}
+    for tupla in evaluaciones:
+        cancion, album, artista,fecha, nota = tupla
+        if fecha < fecha_limit:
+            for art in artista:
+                if art not in diccio:
+                    diccio[art]=[nota]
+                else:
+                    diccio[art].append(nota)
+
+    diccio2 = {}
+    for llave, valor in diccio.items():
+        suma = 0
+        cont = 0
+        for nota in valor:
+            if nota>=4:
+                suma += 1
+            cont+=1
+        probabilidad = suma/cont 
+        diccio2[llave]=probabilidad
+    
+    ordenado = sorted(diccio2.items(), key=lambda x: x[1], reverse=True)
+
+    lista = []
+    for i in range(len(ordenado)):
+        if len(lista)<3:
+            lista.append(ordenado[i])
+    return lista
+
+
+print(artistas_hit(evaluaciones,(2018,8,30)))
+print(artistas_hit(evaluaciones,(2018,2,28)))
