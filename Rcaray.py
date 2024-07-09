@@ -41,3 +41,48 @@ def estafado_por(lista,rut):
 
 print(estafado_por(estafados, '12.234.567-8'))
 print(estafado_por(estafados, '19.678.222-2'))
+
+"""
+ranking(estafados), funcion que recibe como parametro la lista de estafados y retorna un
+diccionario donde cada llave corresponde al nombre de una empresa, y el valor asociado a cada
+llave es la cantidad de dinero que cada empresa logro acumular. 
+"""
+
+def ranking(estafados):
+    diccio = {}
+    for tupla in estafados:
+        rut2, monto, empresa, fecha = tupla
+        if empresa in diccio:
+            diccio[empresa] = diccio[empresa] + monto
+        else:
+            diccio[empresa] = monto
+    valores_ord = dict(sorted(diccio.items()))
+    return valores_ord
+
+print(ranking(estafados))
+
+"""
+estafados por fecha(estafados, inicial, final), funcion que recibe como parametros la lista de 
+estafados, la tupla fecha inicial y la tupla fecha final en formato tuplas (dd, mm, aaaa) y retorna
+una lista de tuplas (rut, deuda) ordenadas en forma descendente segun la deuda total generada 
+entre las fechas entregadas.
+"""
+from datetime import datetime
+def estafados_por_fecha(estafados,inicial,final):
+    diccio = {}
+    inicial_date = datetime(inicial[2], inicial[1], inicial[0])
+    final_date = datetime(final[2], final[1], final[0])
+
+    for tupla in estafados:
+        rut2, monto, empresa, fecha = tupla
+        fecha_date = datetime(fecha[2], fecha[1], fecha[0])
+        if fecha_date > inicial_date and fecha_date < final_date:
+            if rut2 in diccio:
+                diccio[rut2] = diccio[rut2] + monto
+            else:
+                diccio[rut2] = monto
+    valores_ord = dict(sorted(diccio.items()))
+    valores_ord_tuplas = list(valores_ord.items())
+    return valores_ord_tuplas
+
+print(estafados_por_fecha(estafados,(3,1,2016),(1,1,2017)))
