@@ -30,3 +30,28 @@ def numero_de_seguidores(usuario, tuiton):
     return cantidad
 
 print(numero_de_seguidores('@luismi', tuiton))
+
+"""
+Implemente la funcion son_amigos(usuario1, usuario2, tuiton) que retorne
+True si usuario1 y usuario2 se siguen mutuamente; de lo contrario, retornar False.
+"""
+
+def son_amigos(usuario1, usuario2, tuiton):
+    for llave, valor in tuiton.items():
+         if llave == usuario1:
+            for seguido in valor:
+                 if seguido == usuario2:
+                      one = True
+
+    for llave2, valor2 in tuiton.items():
+         if llave2 == usuario2:
+            for seguido2 in valor2:
+                 if seguido2 == usuario1:
+                      two = True
+
+    if one == True and two == True:
+         return True
+    else:
+         return False
+
+print(son_amigos('@anamontain', '@huaiqui', tuiton))
