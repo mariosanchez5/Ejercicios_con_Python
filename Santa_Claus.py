@@ -35,3 +35,26 @@ def persona_mas_cerca(personas, posicion) :
     return nom
 
 print(persona_mas_cerca(personas, (12.9676, 1.4991)))
+
+
+"""
+Santa Claus ha determinado que la mejor ruta para repartir todos los regalos es ir siempre a la
+persona mas cercana (con cuidado de no repetirlas) desde la posicion en la que se encuentra. Usted 
+debe crear la funcion mejor_ruta(personas, posicion) que reciba la lista personas y la
+posicion inicial de Santa Claus, y retorne una lista con la ruta a seguir identificada por el nombre
+de las personas.
+Nota: No altere la lista original de personas.
+"""
+
+def mejor_ruta(personas, posicion):
+    x1,y1 = posicion
+    lista = []
+    for tupla in personas:
+        nombre, ubicacion, estado = tupla
+        x2,y2 = ubicacion
+        distancia = round(((x2-x1)**2 + (y2-y1)**2)**(1/2),1)
+        lista.append((nombre,distancia))
+    lista_ordenada = sorted(lista, key=lambda x: x[1])
+    return lista_ordenada
+
+print(mejor_ruta(personas, (0.0, 0.0)))
