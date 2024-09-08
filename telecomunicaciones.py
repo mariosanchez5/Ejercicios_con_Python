@@ -61,3 +61,46 @@ def promocion(clientes):
     return diccio
 
 print(promocion(clientes))
+
+"""
+Se quiere premiar al tecnico con mayor cantidad de visitas durante el mes de marzo. El premio 
+consiste en lo siguiente: El tecnico con mayor cantidad de visitas, recibe el 1 % por cada servicio 
+(telefonia, cable, internet) que tienen contratados los clientes a los cuales visito. Ej: por visitar al 
+cliente 66 el tecnico con id 65, recibe  $1020, dado que el cliente tienen los 3 servicios contratados
+(1 % de $34.000 → $340 * 3 servicios = $1020).
+Desarrollar la funcion premio_tecnico(clientes, visitas_tecnicas, tecnicos) que
+reciba el diccionario clientes, la lista de visitas_tecnicas y el conjunto de tecnicos. La
+funcion retorna una tupla con el nombre del tecnico y el monto total del premio al tecnico ganador
+del mes de marzo.
+"""
+
+def premio_tecnico(clientes, visitas_tecnicas, tecnicos):
+    contador = 0
+    dicci = {}
+    for id_c, id_t, fecha in visitas_tecnicas:
+        if fecha[3:5] == '03':
+            if id_t in dicci:
+                dicci[id_t] = dicci[id_t] + 1
+            else:
+                dicci[id_t] = 1
+    
+    monto_total = 0
+    for id_c, id_t, fecha in visitas_tecnicas:
+        if id_t == max(dicci):
+            for cliente, lista in clientes.items():
+                if cliente == id_c:
+                    serv, monto, canal, deuda  = lista
+                    cont = 0
+                    for i in serv:
+                        cont=cont+1
+                    total = cont * monto * 0.01
+                    monto_total = monto_total + total
+    
+    for id,nombre in tecnicos:
+        if id == max(dicci):
+            nombre_final = nombre
+    
+    return((nombre_final,monto_total))
+
+
+print(premio_tecnico(clientes, visitas_tecnicas, tecnicos))
